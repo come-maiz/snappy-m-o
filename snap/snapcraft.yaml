@@ -1,0 +1,21 @@
+name: snappy-m-o
+version: '0'
+summary: Snappy Microbe-Obliterator
+description: |
+  Chat ops bot for the snapcraft team.
+
+grade: devel
+confinement: strict
+
+apps:
+  snappy-m-o:
+    command: env LC_ALL=C.UTF-8 errbot
+    plugs: [home, network, network-bind]
+
+parts:
+  errbot:
+    source: https://github.com/errbotio/errbot/
+    source-type: git
+    plugin: python
+    build-packages: [libffi-dev, libssl-dev]
+    python-packages: [python-telegram-bot]

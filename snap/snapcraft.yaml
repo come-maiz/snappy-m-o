@@ -17,5 +17,5 @@ parts:
     source: https://github.com/errbotio/errbot/
     source-type: git
     plugin: python
-    build-packages: [libffi-dev, libssl-dev]
+    build-packages: [gcc, libffi-dev, libssl-dev]
     python-packages: [python-telegram-bot]

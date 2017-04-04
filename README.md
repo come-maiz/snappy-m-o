@@ -1,2 +1,3 @@
-# snappy-m-o
-Snappy Microbe-Obliterator
+# Snappy Microbe-Obliterator
+
+Continuous integration bot for the snapcraft team.

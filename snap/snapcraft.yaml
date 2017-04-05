@@ -9,7 +9,7 @@ confinement: strict
 
 apps:
   snappy-m-o:
-    command: env LC_ALL=C.UTF-8 errbot
+    command: env LC_ALL=C.UTF-8 errbot -c $SNAP/config.py
     plugs: [home, network, network-bind]
 
 parts:
@@ -19,3 +19,7 @@ parts:
     plugin: python
     build-packages: [gcc, libffi-dev, libssl-dev]
     python-packages: [python-telegram-bot]
+  config:
+    source: .
+    plugin: dump
+    stage: [config.py]

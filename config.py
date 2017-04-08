@@ -279,6 +279,16 @@ BOT_PREFIX = '/'
 #                   'ChatRoom:*': {'allowusers': BOT_ADMINS},
 #                  }
 
+TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM = '-132110793'
+
+ACCESS_CONTROLS = {
+    'Autopkgtests:*': {
+        'allowprivate': False,
+        'allowmuc', True,
+        'allowrooms', (TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM,),
+    }
+}
+
 # Uncomment and set this to True to hide the restricted commands from
 # the help output.
 #HIDE_RESTRICTED_COMMANDS = False

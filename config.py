@@ -83,7 +83,7 @@ BOT_DATA_DIR = os.environ.get('SNAP_USER_DATA')
 # locally before publishing it. Note that you can specify only a single
 # directory, however you are free to create subdirectories with multiple
 # plugins inside this directory.
-BOT_EXTRA_PLUGIN_DIR = None
+BOT_EXTRA_PLUGIN_DIR = os.path.join(os.environ.get('SNAP') 'plugins')
 
 # If you use an external backend as a plugin,
 # this is where you tell Errbot where to find it.

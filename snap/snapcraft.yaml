@@ -19,7 +19,9 @@ parts:
     plugin: python
     build-packages: [gcc, libffi-dev, libssl-dev]
     python-packages: [python-telegram-bot]
-  config:
+  snappy-m-o:
     source: .
     plugin: dump
-    stage: [config.py]
+    stage:
+      - config.py
+      - plugins

@@ -163,7 +163,7 @@ BOT_IDENTITY = {
     # 'token': 'xoxb-4426949411-aEM7...',
 
     ## Telegram mode (comment the others above if using this mode)
-    'token': os.environ.get('SNAPPY_M_O_TELEGRAM_TOKEN'),
+    'token': os.environ.get('TELEGRAM_TOKEN_SNAPPY_M_O'),
 
     ## IRC mode (Comment the others above if using this mode)
     # 'nickname' : 'err-chatbot',
@@ -186,7 +186,10 @@ BOT_IDENTITY = {
 #
 # Unix-style glob patterns are supported, so 'gbin@localhost'
 # would be considered an admin if setting '*@localhost'.
-BOT_ADMINS = ()
+
+TELEGRAM_ID_ELOPIO = '43624396'
+
+BOT_ADMINS = (TELEGRAM_ID_ELOPIO,)
 
 # Chatrooms your bot should join on startup. For the IRC backend you
 # should include the # sign here. For XMPP rooms that are password

@@ -25,3 +25,4 @@ parts:
     stage:
       - config.py
       - plugins
+    stage-packages: [wget]

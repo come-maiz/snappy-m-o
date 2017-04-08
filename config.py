@@ -287,8 +287,8 @@ TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM = '-132110793'
 ACCESS_CONTROLS = {
     'AutopkgtestsGithub:*': {
         'allowprivate': False,
-        'allowmuc', True,
-        'allowrooms', (TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM,),
+        'allowmuc': True,
+        'allowrooms': (TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM,),
     }
 }
 

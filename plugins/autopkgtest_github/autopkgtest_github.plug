@@ -1,9 +1,9 @@
 [Core]
-name = SnapcraftGithub
-module = snapcraft_github
+name = AutopkgtestGithub
+module = autopkgtest_github
 
 [Documentation]
-description = Handle GitHub webhooks from the snapcraft repository
+description = Trigger the autopkgtests for GitHub pull requests
 
 [Python]
 version = 3

@@ -1,0 +1,11 @@
+[Core]
+name = SnapcraftGithub
+module = snapcraft_github
+
+[Documentation]
+description = Handle GitHub webhooks from the snapcraft repository
+
+[Python]
+version = 3
+
+[Errbot]

@@ -21,6 +21,9 @@ import errbot
 import github
 
 
+_TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM = -132110793
+
+
 class SnapcraftGithub(errbot.BotPlugin):
     """Handle GitHub webhooks from the snapcraft repository."""
 
@@ -61,6 +64,6 @@ class SnapcraftGithub(errbot.BotPlugin):
             nicks = ' '.join(
                 '@' + nick for nick in self['subscriptions'][pull_request_number])
             self.send(
-                self.build_identifier(43624396),
+                self.build_identifier(_TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM),
                 '{}: a test in pull request #{} failed: {}'.format(
                     nicks, pull_request_number, url))

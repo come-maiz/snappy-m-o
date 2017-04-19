@@ -292,6 +292,14 @@ ACCESS_CONTROLS = {
     }
 }
 
+ACCESS_CONTROLS = {
+    'SnapcraftGithub:*': {
+        'allowprivate': False,
+        'allowmuc': True,
+        'allowrooms': (TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM,),
+    }
+}
+
 # Uncomment and set this to True to hide the restricted commands from
 # the help output.
 #HIDE_RESTRICTED_COMMANDS = False

@@ -289,7 +289,7 @@ ACCESS_CONTROLS = {
         'allowprivate': False,
         'allowmuc': True,
         'allowrooms': (TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM,),
-    }
+    },
     'SnapcraftGithub:*': {
         'allowprivate': False,
         'allowmuc': True,

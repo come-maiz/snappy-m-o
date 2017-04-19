@@ -35,6 +35,8 @@ class SnapcraftGithub(errbot.BotPlugin):
     def github_subscribe(self, message, pull_request_number):
         """Subscribe to the results of pull request tests."""
         from_nick = message.frm.nick
+        snapcraft = self._get_snapcraft_repo()
+        pull_request = snapcraft.get_pull(int(pull_request_number))
         with self.mutable('subscriptions') as subscriptions:
             if pull_request_number not in subscriptions:
                 subscriptions[pull_request_number] = {from_nick}
@@ -42,7 +44,11 @@ class SnapcraftGithub(errbot.BotPlugin):
                 subscriptions[pull_request_number].add(from_nick)
         return (
             "@{}: I'll send you a message if a test fails in the pull request "
-            "#{}.".format(from_nick, pull_request_number))
+            "#{} ({}).".format(
+                from_nick, pull_request.number, pull_request.title))
+
+    def _get_snapcraft_repo(self):
+        return github.Github().get_user('snapcore').get_repo('snapcraft')
 
     @errbot.webhook
     def github(self, incoming_request):
@@ -52,7 +58,7 @@ class SnapcraftGithub(errbot.BotPlugin):
             self._handle_failure(payload)
 
     def _handle_failure(self, payload):
-        snapcraft = github.Github().get_user('snapcore').get_repo('snapcraft')
+        snapcraft = self._get_snapcraft_repo()
         for pull_request in snapcraft.get_pulls():
             if pull_request.head.sha == payload['sha']:
                 self._notify_failure(

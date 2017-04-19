@@ -56,14 +56,14 @@ class SnapcraftGithub(errbot.BotPlugin):
         for pull_request in snapcraft.get_pulls():
             if pull_request.head.sha == payload['sha']:
                 self._notify_failure(
-                    pull_request.number, payload['target_url'])
+                    pull_request, payload['target_url'])
                 break
 
-    def _notify_failure(self, pull_request_number, url):
-        if pull_request_number in self['subscriptions']:
+    def _notify_failure(self, pull_request, url):
+        if pull_request.number in self['subscriptions']:
             nicks = ' '.join(
-                '@' + nick for nick in self['subscriptions'][pull_request_number])
+                '@' + nick for nick in self['subscriptions'][pull_request.number])
             self.send(
                 self.build_identifier(_TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM),
-                '{}: a test in pull request #{} failed: {}'.format(
-                    nicks, pull_request_number, url))
+                '{}: a test failed in pull request #{} ({}): {}'.format(
+                    nicks, pull_request.number, pull_request.title, url))

@@ -39,7 +39,7 @@ class SnapcraftGithub(errbot.BotPlugin):
                 subscriptions[pull_request_number].add(from_nick)
         return (
             "@{}: I'll send you a message if a test fails in the pull request "
-            "#{}".format(from_nick, pull_request_number))
+            "#{}.".format(from_nick, pull_request_number))
 
     @errbot.webhook
     def github(self, incoming_request):

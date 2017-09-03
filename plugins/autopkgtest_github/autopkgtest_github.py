@@ -28,6 +28,7 @@ RETRY_AUTOPKGTEST_SCRIPT_URL = (
     'https://raw.githubusercontent.com/snapcore/snapcraft/master/tools/'
     'retry_autopkgtest.sh')
 
+
 class AutopkgtestsGithub(errbot.BotPlugin):
     """Trigger the autopkgtests for GitHub pull requests."""
 

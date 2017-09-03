@@ -97,7 +97,9 @@ class SnapcraftGithub(errbot.BotPlugin):
                     print(line.replace(
                         'name: snapcraft', 'name: snapcraft-m-o').replace(
                             'snapcraft:', 'snapcraft-m-o:'), end='')
-            subprocess.check_call('snapcraft', cwd=tmp)
+            env = os.environ.copy()
+            del env['PYTHONPATH']
+            subprocess.check_call('snapcraft', cwd=tmp, env=env)
             subprocess.check_call(
                 ['snapcraft', 'push', glob.glob(os.path.join(tmp, '*.snap'))[0],
                  '--release', 'edge/pr{}'.format(pull_request_number)])

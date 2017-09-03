@@ -16,8 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
+import fileinput
+import glob
+import subprocess
+import tempfile
 
 import errbot
+import git
 import github
 
 
@@ -73,3 +78,29 @@ class SnapcraftGithub(errbot.BotPlugin):
                 self.build_identifier(_TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM),
                 '{}: a test failed in pull request #{} ({}): {}'.format(
                     nicks, pull_request.number, pull_request.title, url))
+
+    @errbot.arg_botcmd('pull_request_number', type=int)
+    def github_build(self, message, pull_request_number):
+        """Build the snapcraft snap from a pull request."""
+        from_nick = message.frm.nick
+        snapcraft = self._get_snapcraft_repo()
+        pull_request = snapcraft.get_pull(int(pull_request_number))
+        with tempfile.TemporaryDirectory() as tmp:
+            git.Repo.clone_from(
+                'https://github.com/{}'.format(pr.head.repo.full_name),
+                tmp, branch=pr.head.ref)
+            with fileinput.FileInput(
+                    os.path.join(tmp, 'snap', 'snapcraft.yaml'),
+                    inplace=True, backup='.bak') as yaml:
+                for line in yamll:
+                    print(line.replace(
+                        'name: snapcraft', 'name: snapcraft-m-o').replace(
+                            'snapcraft:', 'snapcraft-m-o:'), end='')
+            subprocess.check_call('snapcraft', cwd=tmp)
+            subprocess.check_call(
+                ['snapcraft', 'push', glob.glob(os.path.join(tmp, '*.snap'))[0],
+                 '--release', 'edge/pr{}'.format(pull_request_number)])
+        return (
+            '@{}: You can install your snapcraft snap with '
+            'sudo snap install snapcraft-m-o --channel=edge/pr{}'.format(
+                from_nick, pull_request_number))

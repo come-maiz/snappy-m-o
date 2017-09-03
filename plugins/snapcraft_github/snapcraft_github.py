@@ -87,8 +87,8 @@ class SnapcraftGithub(errbot.BotPlugin):
         pull_request = snapcraft.get_pull(int(pull_request_number))
         with tempfile.TemporaryDirectory() as tmp:
             git.Repo.clone_from(
-                'https://github.com/{}'.format(pr.head.repo.full_name),
-                tmp, branch=pr.head.ref)
+                'https://github.com/{}'.format(pull_request.head.repo.full_name),
+                tmp, branch=pull_request.head.ref)
             with fileinput.FileInput(
                     os.path.join(tmp, 'snap', 'snapcraft.yaml'),
                     inplace=True, backup='.bak') as yaml:

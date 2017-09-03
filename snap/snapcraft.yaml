@@ -9,7 +9,7 @@ confinement: classic
 
 apps:
   snappy-m-o:
-    command: env LC_ALL=C.UTF-8 errbot -c $SNAP/config.py
+    command: env LC_ALL=C.UTF-8 PYTHONPATH=$SNAP/lib/python3.5/site-packages:$PYTHONPATH $SNAP/bin/errbot -c $SNAP/config.py
 
 parts:
   errbot:

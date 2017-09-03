@@ -10,7 +10,6 @@ confinement: classic
 apps:
   snappy-m-o:
     command: env LC_ALL=C.UTF-8 errbot -c $SNAP/config.py
-    plugs: [home, network, network-bind]
 
 parts:
   errbot:

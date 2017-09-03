@@ -18,6 +18,7 @@
 import json
 import fileinput
 import glob
+import os
 import subprocess
 import tempfile
 
@@ -92,7 +93,7 @@ class SnapcraftGithub(errbot.BotPlugin):
             with fileinput.FileInput(
                     os.path.join(tmp, 'snap', 'snapcraft.yaml'),
                     inplace=True, backup='.bak') as yaml:
-                for line in yamll:
+                for line in yaml:
                     print(line.replace(
                         'name: snapcraft', 'name: snapcraft-m-o').replace(
                             'snapcraft:', 'snapcraft-m-o:'), end='')

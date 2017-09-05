@@ -90,13 +90,6 @@ class SnapcraftGithub(errbot.BotPlugin):
             git.Repo.clone_from(
                 'https://github.com/{}'.format(pull_request.head.repo.full_name),
                 tmp, branch=pull_request.head.ref)
-            with fileinput.FileInput(
-                    os.path.join(tmp, 'snap', 'snapcraft.yaml'),
-                    inplace=True, backup='.bak') as yaml:
-                for line in yaml:
-                    print(line.replace(
-                        'name: snapcraft', 'name: snapcraft-m-o').replace(
-                            'snapcraft:', 'snapcraft-m-o:'), end='')
             env = os.environ.copy()
             del env['PYTHONPATH']
             subprocess.check_call('snapcraft', cwd=tmp, env=env)

@@ -44,4 +44,4 @@ class AutopkgtestsGithub(errbot.BotPlugin):
                 os.stat(retry_script_path).st_mode | stat.S_IEXEC)
             subprocess.check_call([retry_script_path, *args])
         from_nick = message.frm.nick
-        return "@{}: I've just triggered your test.".format(from_nick)
+        return "{}: I've just triggered your test.".format(from_nick)

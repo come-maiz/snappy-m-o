@@ -45,7 +45,7 @@ import os
 # 'Telegram' - cloud-based mobile and desktop messaging app with a focus
 #              on security and speed. (https://telegram.org/)
 
-BACKEND = 'Telegram'
+BACKEND = 'IRC'
 
 # STORAGE selection.
 # This configures the type of persistence you wish to use Errbot with.
@@ -163,17 +163,17 @@ BOT_IDENTITY = {
     # 'token': 'xoxb-4426949411-aEM7...',
 
     ## Telegram mode (comment the others above if using this mode)
-    'token': os.environ.get('TELEGRAM_TOKEN_SNAPPY_M_O'),
+    #'token': os.environ.get('TELEGRAM_TOKEN_SNAPPY_M_O'),
 
     ## IRC mode (Comment the others above if using this mode)
-    # 'nickname' : 'err-chatbot',
+    'nickname': 'snappy-m-o',
     # 'username' : 'err-chatbot',    # optional, defaults to nickname if omitted
     # 'password' : None,             # optional
-    # 'server' : 'irc.freenode.net',
+    'server' : 'irc.freenode.net',
     # 'port': 6667,                  # optional
     # 'ssl': False,                  # optional
     # 'ipv6': False,                 # optional
-    # 'nickserv_password': None,     # optional
+    'nickserv_password': os.environ.get('SNAPPY_M_O_IRC_PASSWORD'),
     ## Optional: Specify an IP address or hostname (vhost), and a
     ## port, to use when making the connection. Leave port at 0
     ## if you have no source port preference.
@@ -187,15 +187,13 @@ BOT_IDENTITY = {
 # Unix-style glob patterns are supported, so 'gbin@localhost'
 # would be considered an admin if setting '*@localhost'.
 
-TELEGRAM_ID_ELOPIO = '43624396'
-
-BOT_ADMINS = (TELEGRAM_ID_ELOPIO,)
+BOT_ADMINS = ('elopio',)
 
 # Chatrooms your bot should join on startup. For the IRC backend you
 # should include the # sign here. For XMPP rooms that are password
 # protected, you can specify another tuple here instead of a string,
 # using the format (RoomName, Password).
-CHATROOM_PRESENCE = ()
+CHATROOM_PRESENCE = ('#snappy',)
 
 # The FullName, or nickname, your bot should use. What you set here will
 # be the nickname that Errbot shows in chatrooms. Note that some XMPP
@@ -215,7 +213,7 @@ CHATROOM_PRESENCE = ()
 # If the prefix is changed from the default, the help strings will be
 # automatically adjusted for you.
 #
-BOT_PREFIX = '/'
+BOT_PREFIX = '/snappy-m-o '
 #
 # Uncomment the following and set it to True if you want the prefix to be
 # optional for normal chat.
@@ -226,7 +224,7 @@ BOT_PREFIX = '/'
 # names, rather than the BOT_PREFIX above. This option allows you to
 # specify alternative prefixes the bot will respond to in addition to
 # the prefix above.
-#BOT_ALT_PREFIXES = ('Err',)
+BOT_ALT_PREFIXES = ('snappy-m-o',)
 
 # If you use alternative prefixes, you might want to allow users to insert
 # separators like , and ; between the prefix and the command itself. This
@@ -236,12 +234,12 @@ BOT_PREFIX = '/'
 #
 # Note: There's no need to add spaces to the separators here
 #
-#BOT_ALT_PREFIX_SEPARATORS = (':', ',', ';')
+BOT_ALT_PREFIX_SEPARATORS = (':', ',', ';')
 
 # Continuing on this theme, you might want to permit your users to be
 # lazy and not require correct capitalization, so they can do 'Err',
 # 'err' or even 'ERR'.
-#BOT_ALT_PREFIX_CASEINSENSITIVE = True
+BOT_ALT_PREFIX_CASEINSENSITIVE = True
 
 ##########################################################################
 # Access controls and message diversion                                  #
@@ -282,18 +280,16 @@ BOT_PREFIX = '/'
 #                   'ChatRoom:*': {'allowusers': BOT_ADMINS},
 #                  }
 
-TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM = '-132110793'
-
 ACCESS_CONTROLS = {
     'AutopkgtestsGithub:*': {
         'allowprivate': False,
         'allowmuc': True,
-        'allowrooms': (TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM,),
+        'allowusers':  ('elopio!*', 'kyrofa!*', 'sergiusens!*', 'kalikiana!*'),
     },
     'SnapcraftGithub:*': {
         'allowprivate': False,
         'allowmuc': True,
-        'allowrooms': (TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM,),
+        'allowusers':  ('elopio!*', 'kyrofa!*', 'sergiusens!*', 'kalikiana!*'),
     }
 }
 

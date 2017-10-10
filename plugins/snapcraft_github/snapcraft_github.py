@@ -27,9 +27,6 @@ import git
 import github
 
 
-_TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM = -132110793
-
-
 class SnapcraftGithub(errbot.BotPlugin):
     """Handle GitHub webhooks from the snapcraft repository."""
 
@@ -49,7 +46,7 @@ class SnapcraftGithub(errbot.BotPlugin):
             else:
                 subscriptions[pull_request_number].add(from_nick)
         return (
-            "@{}: I'll send you a message if a test fails in the pull request "
+            "{}: I'll send you a message if a test fails in the pull request "
             "#{} ({}).".format(
                 from_nick, pull_request.number, pull_request.title))
 
@@ -74,10 +71,11 @@ class SnapcraftGithub(errbot.BotPlugin):
     def _notify_failure(self, pull_request, url):
         if pull_request.number in self['subscriptions']:
             nicks = ' '.join(
-                '@' + nick for nick in self['subscriptions'][pull_request.number])
+                nick for nick in self['subscriptions'][pull_request.number])
             self.send(
-                self.build_identifier(_TELEGRAM_ID_SNAPCRAFT_TEAM_ROOM),
-                '{}: a test failed in pull request #{} ({}): {}'.format(
+                self.build_identifier('#snappy'),
+                '{}: a test failed in pull request '
+                'snapcraft#{} ({}): {}'.format(
                     nicks, pull_request.number, pull_request.title, url))
 
     @errbot.arg_botcmd('pull_request_number', type=int)
@@ -97,6 +95,6 @@ class SnapcraftGithub(errbot.BotPlugin):
                 ['snapcraft', 'push', glob.glob(os.path.join(tmp, '*.snap'))[0],
                  '--release', 'edge/pr{}'.format(pull_request_number)])
         return (
-            '@{}: You can install your snapcraft snap with '
+            '{}: You can install your snapcraft snap with '
             'sudo snap install snapcraft-m-o --channel=edge/pr{}'.format(
                 from_nick, pull_request_number))

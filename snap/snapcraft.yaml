@@ -1,5 +1,5 @@
 name: snappy-m-o
-version: '0.1-dev'
+version: '0.2-dev'
 summary: Snappy Microbe-Obliterator
 description: |
   Chat ops bot for the snapcraft team.
@@ -17,7 +17,7 @@ parts:
     source-type: git
     plugin: python
     build-packages: [gcc, libffi-dev, libssl-dev]
-    python-packages: [gitpython, python-telegram-bot, PyGithub]
+    python-packages: [irc, gitpython, PyGithub]
   snappy-m-o:
     source: .
     plugin: dump

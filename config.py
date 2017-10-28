@@ -187,7 +187,7 @@ BOT_IDENTITY = {
 # Unix-style glob patterns are supported, so 'gbin@localhost'
 # would be considered an admin if setting '*@localhost'.
 
-BOT_ADMINS = ('elopio',)
+BOT_ADMINS = ()
 
 # Chatrooms your bot should join on startup. For the IRC backend you
 # should include the # sign here. For XMPP rooms that are password

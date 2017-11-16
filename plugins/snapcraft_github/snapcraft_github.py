@@ -46,7 +46,7 @@ class SnapcraftGithub(errbot.BotPlugin):
             else:
                 subscriptions[pull_request_number].add(from_nick)
         return (
-            "{}: I'll send you a message if a test fails in the pull request "
+            "{}: I'll send you updates as tests complete in pull request "
             "snapcraft#{} ({}).".format(
                 from_nick, pull_request.number, pull_request.title))
 
@@ -57,26 +57,36 @@ class SnapcraftGithub(errbot.BotPlugin):
     def github(self, incoming_request):
         """A webhook to handle messages from GitHub."""
         payload = json.loads(incoming_request['payload'])
-        if payload['state'] == 'failure':
-            self._handle_failure(payload)
+        success = None
+        if payload['state'] == 'success':
+            success = True
+        elif payload['state'] == 'failure' or payload['state'] == 'error':
+            success = False
 
-    def _handle_failure(self, payload):
+        if success is not None:
+            self._handle_notification(payload, success)
+
+    def _handle_notification(self, payload, success):
         snapcraft = self._get_snapcraft_repo()
         for pull_request in snapcraft.get_pulls():
             if pull_request.head.sha == payload['sha']:
-                self._notify_failure(
-                    pull_request, payload['target_url'])
+                self._notify(
+                    pull_request, payload['target_url'], success)
                 break
 
-    def _notify_failure(self, pull_request, url):
+    def _notify(self, pull_request, url, success):
         if pull_request.number in self['subscriptions']:
             nicks = ' '.join(
                 nick for nick in self['subscriptions'][pull_request.number])
+            state = 'AMAZING SUCCESS'
+            if not success:
+                state = 'ABYSMAL FAILURE'
             self.send(
                 self.build_identifier('#snappy'),
-                '{}: a test failed in pull request '
+                '{}: a test completed with {} in pull request '
                 'snapcraft#{} ({}): {}'.format(
-                    nicks, pull_request.number, pull_request.title, url))
+                    nicks, state, pull_request.number, pull_request.title,
+                    url))
 
     @errbot.arg_botcmd('pull_request_number', type=int)
     def github_build(self, message, pull_request_number):

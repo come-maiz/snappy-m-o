@@ -47,7 +47,7 @@ class SnapcraftGithub(errbot.BotPlugin):
                 subscriptions[pull_request_number].add(from_nick)
         return (
             "{}: I'll send you a message if a test fails in the pull request "
-            "#{} ({}).".format(
+            "snapcraft#{} ({}).".format(
                 from_nick, pull_request.number, pull_request.title))
 
     def _get_snapcraft_repo(self):

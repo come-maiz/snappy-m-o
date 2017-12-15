@@ -31,14 +31,22 @@ class SnapcraftTravis(errbot.BotPlugin):
 
     @errbot.arg_botcmd('pull_request_number', type=int)
     def travis_snapurl(self, message, pull_request_number):
-        build_id = self._get_build_id(pull_request_number)
+        try:
+            build_id = self._get_build_id(pull_request_number)
+        except errbot.ValidationException:
+            return 'Could not find build with pull request #%i' % pull_request_number
+
         jobs = self._travis_request('build/%s' % build_id, {})['jobs']
         # get the id for the snap job
-        job_id = jobs[3]['id']
+        try:
+            job_id = jobs[3]['id']
+        except IndexError:
+            return 'Link not present in pull request #%i' % pull_request_number
+
         log = self._travis_request('job/%s/log' % job_id, {})['content']
         log = log.split('\n')
         link = next((line for line in log if 'transfer.sh/' in line), 
-                    "Link not present in pull request #%i" % pull_request_number)
+                    'Link not present in pull request #%i' % pull_request_number)
         return link
 
 
@@ -57,7 +65,7 @@ class SnapcraftTravis(errbot.BotPlugin):
             response = self._travis_request('repo/snapcore%2Fsnapcraft/requests', params)
             requests = response['requests']
             if (len(requests) == 0):
-                raise errbot.ValidationException('Could not find pull request #%i'
+                raise errbot.ValidationException('Could not find build for pull request #%i'
                                                  % pull_request_number)
                 
             for request in requests:

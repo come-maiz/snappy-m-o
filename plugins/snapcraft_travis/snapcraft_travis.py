@@ -26,47 +26,43 @@ import github
 class SnapcraftTravis(errbot.BotPlugin):
     """Handle Travis requests with the Travis API."""
 
-    def activate(self):
-        super().activate()
-
     @errbot.arg_botcmd('pull_request_number', type=int)
     def travis_snapurl(self, message, pull_request_number):
         try:
             build_id = self._get_build_id(pull_request_number)
         except errbot.ValidationException:
-            return 'Could not find build with pull request #%i' % pull_request_number
+            return ('Could not find build with pull '
+                    'request snapcraft#{}'.format(pull_request_number))
 
-        jobs = self._travis_request('build/%s' % build_id, {})['jobs']
+        jobs = self._get_travis_jobs(build_id)
         # get the id for the snap job
         try:
             job_id = jobs[3]['id']
         except IndexError:
-            return 'Link not present in pull request #%i' % pull_request_number
+            return 'Link not present in pull request snapcraft#{}'.format(pull_request_number)
 
-        log = self._travis_request('job/%s/log' % job_id, {})['content']
+        log = self._get_travis_job_log(job_id)
         log = log.split('\n')
         link = next((line for line in log if 'transfer.sh/' in line), 
-                    'Link not present in pull request #%i' % pull_request_number)
+                    'Link not present in pull request snapcraft#{}'.format(pull_request_number))
         return link
 
 
-    def _travis_request(self, resource, params):        
+    def _get_travis_api_resource(self, resource, params):        
         url = 'https://api.travis-ci.org'
         headers = {'Travis-API-Version': '3', 'User-Agent': 'snappy-m-o'}
-        r = requests.get(url + '/' + resource, headers=headers, params=params)
-        return r.json()
+        response = requests.get(url + '/' + resource, headers=headers, params=params)
+        return response.json()
 
     def _get_build_id(self, pull_request_number):
         limit = 100
         offset = 0
 
         while True:
-            params = {'limit': limit, 'offset': offset}
-            response = self._travis_request('repo/snapcore%2Fsnapcraft/requests', params)
-            requests = response['requests']
+            requests = self._get_travis_requests(pull_request_number, limit, offset)
             if (len(requests) == 0):
-                raise errbot.ValidationException('Could not find build for pull request #%i'
-                                                 % pull_request_number)
+                raise errbot.ValidationException('Could not find build with pull request '
+                                                 'snapcraft#{}'.format(pull_request_number))
                 
             for request in requests:
                 for build in request['builds']:
@@ -74,3 +70,17 @@ class SnapcraftTravis(errbot.BotPlugin):
                         return build['id']
                         
             offset += limit
+
+    def _get_travis_requests(self, pull_request_number, limit, offset):
+        params = {'limit': limit, 'offset': offset}
+        response = self._get_travis_api_resource('repo/snapcore%2Fsnapcraft/requests', params)
+        requests = response['requests']
+        return requests
+
+    def _get_travis_jobs(self, build_id):
+        jobs = self._get_travis_api_resource('build/{}'.format(build_id), {})['jobs']
+        return jobs
+
+    def _get_travis_job_log(self, job_id):
+        log = self._get_travis_api_resource('job/{}/log'.format(job_id), {})['content']
+        return log

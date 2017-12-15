@@ -1,0 +1,11 @@
+[Core]
+name = SnapcraftTravis
+module = snapcraft_travis
+
+[Documentation]
+description = Handle Travis requests with the Travis API
+
+[Python]
+version = 3
+
+[Errbot]

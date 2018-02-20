@@ -1,6 +1,7 @@
 # Snappy Microbe-Obliterator _(snappy-m-o)_
 
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat)](https://github.com/RichardLitt/standard-readme)
+
 [![Snap Status](https://build.snapcraft.io/badge/elopio/snappy-m-o.svg)](https://build.snapcraft.io/user/elopio/snappy-m-o)
 
 Continuous integration bot for the snapcraft team.

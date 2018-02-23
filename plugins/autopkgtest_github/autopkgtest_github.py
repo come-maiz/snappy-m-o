@@ -29,7 +29,7 @@ RETRY_AUTOPKGTEST_SCRIPT_URL = (
     'retry_autopkgtest.sh')
 
 
-class AutopkgtestsGithub(errbot.BotPlugin):
+class AutopkgtestGithub(errbot.BotPlugin):
     """Trigger the autopkgtests for GitHub pull requests."""
 
     @errbot.botcmd(split_args_with=None)

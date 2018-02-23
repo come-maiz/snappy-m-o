@@ -281,7 +281,7 @@ BOT_ALT_PREFIX_CASEINSENSITIVE = True
 #                  }
 
 ACCESS_CONTROLS = {
-    'AutopkgtestsGithub:*': {
+    'AutopkgtestGithub:*': {
         'allowprivate': False,
         'allowmuc': True,
         'allowusers':  ('@elopio', '@kyrofa', '@sergiusens', '@kalikiana'),

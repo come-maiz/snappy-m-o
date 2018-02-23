@@ -43,12 +43,12 @@ class SnapcraftTravis(errbot.BotPlugin):
 
         log = self._get_travis_job_log(job_id)
         log = log.split('\n')
-        link = next((line for line in log if 'transfer.sh/' in line), 
+        link = next((line for line in log if 'transfer.sh/' in line),
                     'Link not present in pull request snapcraft#{}'.format(pull_request_number))
         return link
 
 
-    def _get_travis_api_resource(self, resource, params):        
+    def _get_travis_api_resource(self, resource, params):
         url = 'https://api.travis-ci.org'
         headers = {'Travis-API-Version': '3', 'User-Agent': 'snappy-m-o'}
         response = requests.get(url + '/' + resource, headers=headers, params=params)
@@ -63,12 +63,12 @@ class SnapcraftTravis(errbot.BotPlugin):
             if (len(requests) == 0):
                 raise errbot.ValidationException('Could not find build with pull request '
                                                  'snapcraft#{}'.format(pull_request_number))
-                
+
             for request in requests:
                 for build in request['builds']:
                     if build['pull_request_number'] == pull_request_number:
                         return build['id']
-                        
+
             offset += limit
 
     def _get_travis_requests(self, pull_request_number, limit, offset):

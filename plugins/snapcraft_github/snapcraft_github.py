@@ -99,7 +99,8 @@ class SnapcraftGithub(errbot.BotPlugin):
                 'https://github.com/{}'.format(pull_request.head.repo.full_name),
                 tmp, branch=pull_request.head.ref)
             env = os.environ.copy()
-            del env['PYTHONPATH']
+            if 'PYTHONPATH' in env:
+                del env['PYTHONPATH']
             subprocess.check_call('snapcraft', cwd=tmp, env=env)
             subprocess.check_call(
                 ['snapcraft', 'push', glob.glob(os.path.join(tmp, '*.snap'))[0],

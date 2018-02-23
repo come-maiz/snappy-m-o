@@ -12,18 +12,11 @@ apps:
     command: env LC_ALL=C.UTF-8 PYTHONPATH=$SNAP/lib/python3.5/site-packages:$PYTHONPATH $SNAP/bin/errbot -c $SNAP/config.py
 
 parts:
-  errbot:
-    source: https://github.com/errbotio/errbot/
-    source-type: git
-    plugin: python
-    build-packages: [gcc, libffi-dev, libssl-dev]
-    python-packages: [irc, gitpython, PyGithub]
   snappy-m-o:
     source: .
-    plugin: dump
-    stage:
-      - config.py
-      - plugins
-  dependencies:
-    plugin: nil
+    plugin: python
     stage-packages: [wget]
+    requirements: requirements.txt
+    install: |
+      cp config.py $SNAPCRAFT_PART_INSTALL/
+      cp -R plugins $SNAPCRAFT_PART_INSTALL/

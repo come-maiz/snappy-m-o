@@ -1,8 +1,11 @@
 sudo: required
-language: bash
+language: python
 
-services:
-  - docker
+install:
+  - sudo apt install --yes wget
+  - pip install -r requirements.txt -r requirements-devel.txt
+  - sudo snap install snapcraft
 
 script:
-  - docker run -v $(pwd):$(pwd) -t snapcore/snapcraft sh -c "apt update && cd $(pwd) && snapcraft"
+  - python3 -m unittest discover tests
+  - /snap/bin/snapcraft

@@ -39,6 +39,7 @@ class AutopkgtestsGithub(errbot.BotPlugin):
             request.urlretrieve(
                 RETRY_AUTOPKGTEST_SCRIPT_URL,
                 retry_script_path)
+            # Make the script executable.
             os.chmod(
                 retry_script_path,
                 os.stat(retry_script_path).st_mode | stat.S_IEXEC)

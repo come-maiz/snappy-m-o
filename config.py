@@ -284,12 +284,17 @@ ACCESS_CONTROLS = {
     'AutopkgtestsGithub:*': {
         'allowprivate': False,
         'allowmuc': True,
-        'allowusers':  ('elopio!*', 'kyrofa!*', 'sergiusens!*', 'kalikiana!*'),
+        'allowusers':  ('@elopio', '@kyrofa', '@sergiusens', '@kalikiana'),
     },
     'SnapcraftGithub:*': {
         'allowprivate': False,
         'allowmuc': True,
-        'allowusers':  ('elopio!*', 'kyrofa!*', 'sergiusens!*', 'kalikiana!*'),
+        'allowusers':  ('@elopio', '@kyrofa', '@sergiusens', '@kalikiana'),
+    },
+    'SnapcraftTravis:*': {
+        'allowprivate': False,
+        'allowmuc': True,
+        'allowusers':  ('@elopio', '@kyrofa', '@sergiusens', '@kalikiana'),
     }
 }
 

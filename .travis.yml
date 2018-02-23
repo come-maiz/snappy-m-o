@@ -6,7 +6,7 @@ python:
 install:
   - sudo apt install --yes snapd wget
   - pip install -r requirements.txt -r requirements-devel.txt
-  - sudo snap install snapcraft
+  - sudo snap install snapcraft --classic
 
 script:
   - python3 -m unittest discover tests

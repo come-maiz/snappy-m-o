@@ -4,7 +4,7 @@ python:
   - "3.6"
 
 install:
-  - sudo apt install --yes wget
+  - sudo apt install --yes snapd wget
   - pip install -r requirements.txt -r requirements-devel.txt
   - sudo snap install snapcraft
 

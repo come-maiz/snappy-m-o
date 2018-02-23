@@ -163,7 +163,7 @@ BOT_IDENTITY = {
     # 'token': 'xoxb-4426949411-aEM7...',
 
     ## Telegram mode (comment the others above if using this mode)
-    #'token': os.environ.get('TELEGRAM_TOKEN_SNAPPY_M_O'),
+    'token': os.environ.get('SNAPPY_M_O_SLACK_TOKEN'),
 
     ## IRC mode (Comment the others above if using this mode)
     'nickname': 'snappy-m-o',
@@ -173,7 +173,7 @@ BOT_IDENTITY = {
     # 'port': 6667,                  # optional
     # 'ssl': False,                  # optional
     # 'ipv6': False,                 # optional
-    'nickserv_password': os.environ.get('SNAPPY_M_O_IRC_PASSWORD'),
+    #'nickserv_password':
     ## Optional: Specify an IP address or hostname (vhost), and a
     ## port, to use when making the connection. Leave port at 0
     ## if you have no source port preference.
@@ -187,13 +187,13 @@ BOT_IDENTITY = {
 # Unix-style glob patterns are supported, so 'gbin@localhost'
 # would be considered an admin if setting '*@localhost'.
 
-BOT_ADMINS = ()
+BOT_ADMINS = ('@elopio', '@kyrofa')
 
 # Chatrooms your bot should join on startup. For the IRC backend you
 # should include the # sign here. For XMPP rooms that are password
 # protected, you can specify another tuple here instead of a string,
 # using the format (RoomName, Password).
-CHATROOM_PRESENCE = ('#snappy',)
+CHATROOM_PRESENCE = ()
 
 # The FullName, or nickname, your bot should use. What you set here will
 # be the nickname that Errbot shows in chatrooms. Note that some XMPP
@@ -224,7 +224,7 @@ BOT_PREFIX = '/snappy-m-o '
 # names, rather than the BOT_PREFIX above. This option allows you to
 # specify alternative prefixes the bot will respond to in addition to
 # the prefix above.
-BOT_ALT_PREFIXES = ('snappy-m-o',)
+BOT_ALT_PREFIXES = ('@snappy-m-o',)
 
 # If you use alternative prefixes, you might want to allow users to insert
 # separators like , and ; between the prefix and the command itself. This
